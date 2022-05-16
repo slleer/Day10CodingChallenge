@@ -1,0 +1,10 @@
+My solution:
+I choose to use a hashmap for its speed with random access. With the songId
+stored as the key and the number of plays as its values, it is quick to
+insert/retrieve a given songs number of plays. For the getTopNPlays method,
+I choose to use stream api. This choice was made because method requires
+returning a list, which is made easy with the stream api's collect method.
+Additionally, using stream api allowed the use of sorted, limit, and map.
+By using these methods, I was able to achieve my solution without having to
+convert the hashmap to an array first. This also allowed for only the necessary
+number of elements to be added to the list by using the limit method.
