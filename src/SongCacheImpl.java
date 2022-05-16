@@ -2,13 +2,18 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+/**
+ * Author: Stephen Leer
+ */
+
 public class SongCacheImpl implements SongCache{
-    private final HashMap<String, Integer> songMap;
+    private final ConcurrentHashMap<String, Integer> songMap;
 
     public SongCacheImpl() {
-        this.songMap = new HashMap<>();
+        this.songMap = new ConcurrentHashMap<>();
     }
 
     @Override

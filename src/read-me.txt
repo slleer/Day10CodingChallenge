@@ -1,4 +1,15 @@
 My solution:
+
+UPDATE:
+Changed hashmap to ConcurrentHashMap for thread safety. Though concurrenthashmap's
+get function is non-blocking, it will return the most up to date value from time
+the get method is STARTED. This means any values updated at the same time as a
+call to getPlaysForSongs might not visible to getPlaysForSongs. However, this
+implementation also avoids the need for synchronized which can lead to slow downs.
+I was looking at using putIfAbsent and replace as atomic means of adding/updating
+number of song plays, however this would have required the use of synchronized
+to prevent a race condition between calls to putIfAbsent and replace.
+
 I choose to use a hashmap for its speed with random access. With the songId
 stored as the key and the number of plays as its values, it is quick to
 insert/retrieve a given songs number of plays. For the getTopNPlays method,
