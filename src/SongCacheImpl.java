@@ -3,6 +3,7 @@ import org.testng.annotations.Test;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 /**
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
  */
 
 public class SongCacheImpl implements SongCache{
-    private final ConcurrentHashMap<String, Integer> songMap;
+    private final ConcurrentMap<String, Integer> songMap;
 
     public SongCacheImpl() {
         this.songMap = new ConcurrentHashMap<>();
@@ -18,7 +19,11 @@ public class SongCacheImpl implements SongCache{
 
     @Override
     public void recordSongPlays(String songId, int numPlays) {
-        this.songMap.put(songId, this.songMap.getOrDefault(songId,0)+numPlays);
+        Optional<Integer> idExists = Optional.ofNullable(this.songMap.putIfAbsent(songId, numPlays));
+        if(idExists.isPresent()){
+            this.songMap.computeIfPresent(songId, (k, v) -> v+numPlays);
+            //this.songMap.replace(songId, this.songMap.get(songId), (this.songMap.get(songId) + numPlays))
+        }
     }
 
     @Override
