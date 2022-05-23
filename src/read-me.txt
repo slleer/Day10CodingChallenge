@@ -5,7 +5,7 @@ Changed hashmap to ConcurrentHashMap for thread safety. Replaced combined
 put/getOrDefault statement with a call to putIfAbsent and storing the
 result in an optional. Check optional for value for updating value if key
 already exist. Using computeIfPresent to update value when key already
-exists.  
+exists.
 
 I choose to use a hashmap for its speed with random access. With the songId
 stored as the key and the number of plays as its values, it is quick to
